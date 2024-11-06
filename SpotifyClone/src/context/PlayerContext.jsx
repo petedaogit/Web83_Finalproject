@@ -7,7 +7,7 @@ const PlayerContextProvider = (props) => {
   const seekBg = useRef();
   const seekBar = useRef();
 
-  const url = "http://localhost:4000";
+  const url = "https://web83-finalproject-backend.onrender.com";
 
   const [songsData, setSongsData] = useState([]);
   const [albumsData, setAlbumsData] = useState([]);
