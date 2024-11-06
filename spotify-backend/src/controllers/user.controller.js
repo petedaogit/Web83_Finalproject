@@ -1,7 +1,6 @@
 import userModel from "../models/users.model.js";
 import express from "express";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import "dotenv/config";
 
 const signupUser = async (req, res) => {
@@ -21,11 +20,9 @@ const signupUser = async (req, res) => {
       return res.status(409).json({ error: "User name already existed!" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = new userModel({
       userName,
-      password: hashedPassword,
+      password,
       role,
     });
 
@@ -46,8 +43,7 @@ const login = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials!" });
     }
 
-    const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) {
+    if (password !== user.password) {
       return res.status(401).json({ error: "Invalid credentials!" });
     }
 
